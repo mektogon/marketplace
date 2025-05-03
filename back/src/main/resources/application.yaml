@@ -1,0 +1,69 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /marketplace
+
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    path: ./log
+    name: ${logging.file.path}/application.log
+  logback:
+    rollingpolicy:
+      max-file-size: 100MB
+      max-history: 7
+  level:
+    root: ERROR
+    orb.hibernate.SQL: ERROR
+    org.springframework.transaction: ERROR
+    org.springframework.security: ERROR
+    org.springframework.cache: ERROR
+    ru.dorofeev.baseproject: DEBUG
+
+spring:
+  main:
+    banner-mode: OFF
+  profiles:
+    default: default
+  config:
+    import: optional:file:docker/.env[.properties]
+  datasource:
+    url: ${POSTGRES_HOST}/${POSTGRES_DB}
+    username: ${POSTGRES_USR}
+    password: ${POSTGRES_PWD}
+  liquibase:
+    enabled: true
+    change-log: classpath:liquibase/changelog/changelog.yaml
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        default_batch_fetch_size: 5
+        batch_fetch_style: dynamic
+        query:
+          fail_on_pagination_over_collection_fetch: true
+
+management:
+  endpoint:
+    health:
+      show-details: when_authorized
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+
+springdoc:
+  api-docs:
+    enabled: false
