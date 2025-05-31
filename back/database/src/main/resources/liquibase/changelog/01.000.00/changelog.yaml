@@ -5,3 +5,15 @@ databaseChangeLog:
     - include:
         file: 1709304025339_create_job_table.sql
         relativeToChangelogFile: true
+    - include:
+        file: 1746265463316_create_table_product.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 1746265466153_create_table_category.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 1746265451470_create_table_product_category.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 1748682057805_insert_tshirt_to_category_table.sql
+        relativeToChangelogFile: true
