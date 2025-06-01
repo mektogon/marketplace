@@ -23,6 +23,9 @@ subprojects {
     dependencies {
         api("org.slf4j:slf4j-api:2.0.16")
 
+        api("org.apache.commons:commons-collections4:4.5.0")
+        api("org.apache.commons:commons-lang3:3.17.0")
+
         compileOnly("org.projectlombok:lombok:$lombokVersion")
         annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
@@ -53,7 +56,9 @@ dependencies {
 
     testCompileOnly("org.projectlombok:lombok:$lombokVersion")
     testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.13.0")
+    testImplementation("io.rest-assured:rest-assured:5.5.5")
+    //https://allurereport.org
+    implementation("io.qameta.allure:allure-rest-assured:2.29.1")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:junit-jupiter")

@@ -7,7 +7,304 @@ externalDocs:
   description: Карточка приложения
   url: protocol://host:port/docs/app
 servers:
-  - url: protocol://host:port/marketplace/
+  - url: protocol://host:port/
     description: Адрес приложения
-paths: {}
-components: {}
+tags:
+  - name: CatalogController
+    description: Точка доступа к каталогу
+  - name: ProductController
+    description: Точка доступа к продуктам
+  - name: CategoryController
+    description: Точка доступа к категориям
+paths:
+  /product/list:
+    post:
+      tags:
+        - ProductController
+      description: Получение списка продуктов
+      operationId: getProducts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WebProductRequest"
+        required: true
+      responses:
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebProductResponse"
+  /category/list:
+    post:
+      tags:
+        - CategoryController
+      description: Получение списка категорий
+      operationId: getCategories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WebCategoryRequest"
+        required: true
+      responses:
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebCategoryResponse"
+  /catalog:
+    post:
+      tags:
+        - CatalogController
+      description: Получение списка категорий
+      operationId: getCategories_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WebCatalogRequest"
+        required: true
+      responses:
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebCatalogResponse"
+components:
+  schemas:
+    ErrorData:
+      type: object
+      description: Модель ошибки
+      properties:
+        errorField:
+          type: string
+          description: Наименование системы
+        errorMessage:
+          type: string
+          description: "Сообщение с ошибкой, выводимое на UI"
+    ErrorResponse:
+      type: object
+      description: Модель ошибки
+      properties:
+        system:
+          type: string
+          description: Наименование системы
+        code:
+          type: string
+          description: Код ошибки
+        type:
+          type: string
+          description: Тип ошибки
+        validation:
+          type: array
+          description: Ошибки валидации
+          items:
+            $ref: "#/components/schemas/ErrorData"
+    PaginationDetail:
+      type: object
+      description: Модель с детальными параметрами пагинации
+      properties:
+        pageIndex:
+          type: integer
+          format: int32
+          description: Количество элементов на странице
+        pageSize:
+          type: integer
+          format: int32
+          description: Количество элементов на странице
+        hasNextPage:
+          type: boolean
+          description: Признак следующей страницы
+        totalElements:
+          type: integer
+          format: int64
+          description: Общее количество элементов
+        totalPages:
+          type: integer
+          format: int32
+          description: Общее количество страниц
+    SortField:
+      type: object
+      description: Модель с параметрами сортировки
+      properties:
+        field:
+          type: string
+          description: Поле сортировки
+          minLength: 1
+        direction:
+          type: string
+          default: ASC
+          description: Направление сортировки
+          enum:
+            - ASC
+            - DESC
+    WebProduct:
+      type: object
+      description: Модель с информацией по продукту
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Идентификатор продукта
+        displayName:
+          type: string
+          description: Наименование продукта
+        description:
+          type: string
+          description: Описание продукта
+        isVisible:
+          type: boolean
+          description: Отображение продукта
+    WebProductResponse:
+      type: object
+      description: Модель со списком продуктов
+      properties:
+        pagination:
+          $ref: "#/components/schemas/PaginationDetail"
+          description: Информация о параметрах пагинации
+        sortField:
+          $ref: "#/components/schemas/SortField"
+          description: Информация о параметрах сортировки
+        products:
+          type: array
+          description: Список продуктов
+          items:
+            $ref: "#/components/schemas/WebProduct"
+    Pagination:
+      type: object
+      description: Модель с параметрами пагинации
+      properties:
+        pageIndex:
+          type: integer
+          format: int32
+          description: Количество элементов на странице
+        pageSize:
+          type: integer
+          format: int32
+          description: Количество элементов на странице
+    WebProductRequest:
+      type: object
+      description: Модель запроса списка продуктов
+      properties:
+        pagination:
+          $ref: "#/components/schemas/Pagination"
+          description: Параметры пагинации
+        sortField:
+          $ref: "#/components/schemas/SortField"
+          description: Параметры сортировки
+      required:
+        - pagination
+    WebCategory:
+      type: object
+      description: Модель с информацией по категории
+      properties:
+        code:
+          type: string
+          description: Код категории
+        displayName:
+          type: string
+          description: Наименование категории
+        priority:
+          type: integer
+          format: int32
+          description: Приоритет категории
+        isVisible:
+          type: boolean
+          description: Отображение категории
+    WebCategoryResponse:
+      type: object
+      description: Модель со списком категорий
+      properties:
+        pagination:
+          $ref: "#/components/schemas/PaginationDetail"
+          description: Информация о параметрах пагинации
+        sortField:
+          $ref: "#/components/schemas/SortField"
+          description: Информация о параметрах сортировки
+        categories:
+          type: array
+          description: Список категорий
+          items:
+            $ref: "#/components/schemas/WebCategory"
+    WebCategoryRequest:
+      type: object
+      description: Модель запроса списка категорий
+      properties:
+        pagination:
+          $ref: "#/components/schemas/Pagination"
+          description: Параметры пагинации
+        sortField:
+          $ref: "#/components/schemas/SortField"
+          description: Параметры сортировки
+      required:
+        - pagination
+    WebCatalogResponse:
+      type: object
+      description: Модель с каталогом товаров
+      properties:
+        initialCategoryCode:
+          type: string
+          description: "Код категории, по которой необходимо получить начальный сп\
+            исок товаров"
+        categoryResponse:
+          $ref: "#/components/schemas/WebCategoryResponse"
+          description: Информация по категориям
+        productResponse:
+          $ref: "#/components/schemas/WebProductResponse"
+          description: Информация по продуктам
+    WebCatalogRequest:
+      type: object
+      description: Модель запроса каталога
+      properties:
+        initialCategoryCode:
+          type: string
+          description: "Код категории, по которой необходимо получить начальный сп\
+            исок товаров"
+          maxLength: 2147483647
+          minLength: 1
+        categoryRequest:
+          $ref: "#/components/schemas/WebCategoryRequest"
+          description: Параметры запрос списка категорий
+        productRequest:
+          $ref: "#/components/schemas/WebProductRequest"
+          description: Параметры запрос списка продуктов
