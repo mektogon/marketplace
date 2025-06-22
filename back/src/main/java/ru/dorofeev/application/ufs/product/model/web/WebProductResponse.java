@@ -22,5 +22,5 @@ public class WebProductResponse extends BasicPaginationResponseFields {
 
     @Schema(description = "Список продуктов")
     @Builder.Default
-    List<WebProduct> products = new ArrayList<>();
+    private List<WebProduct> products = new ArrayList<>();
 }

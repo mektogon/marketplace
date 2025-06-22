@@ -29,11 +29,11 @@ public class ProductServiceImpl implements ProductService {
     public WebProductResponse getProducts(WebProductRequest request) {
 
         if (Objects.isNull(request)) {
-            log.error("Объект запроса не может быть равен null!");
+            log.warn("Объект запроса не может быть равен null!");
             return EMPTY_RESPONSE;
         }
 
-        Slice<Product> productSlice = repository.findAll(
+        Slice<Product> productSlice = repository.findAllByIsVisibleTrue(
                 PaginationUtils.getPageable(
                         request.getPagination(),
                         request.getSortField()

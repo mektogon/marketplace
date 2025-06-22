@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import ru.dorofeev.application.ufs.tag.model.web.WebTag;
 
+import java.util.List;
 import java.util.UUID;
 
 @Schema(description = "Модель с информацией по продукту")
@@ -26,6 +28,6 @@ public class WebProduct {
     @Schema(description = "Описание продукта")
     private String description;
 
-    @Schema(description = "Отображение продукта")
-    private Boolean isVisible;
+    @Schema(description = "Список тегов пользователя")
+    private List<WebTag> tags;
 }

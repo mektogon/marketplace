@@ -42,7 +42,7 @@ public class CatalogServiceImpl implements CatalogService {
     public WebCatalogResponse getCatalog(WebCatalogRequest request) {
 
         if (Objects.isNull(request)) {
-            log.error("Объект запроса не может быть равен null!");
+            log.warn("Объект запроса не может быть равен null!");
             return EMPTY_RESPONSE;
         }
 
@@ -54,7 +54,7 @@ public class CatalogServiceImpl implements CatalogService {
                     .build();
         }
 
-        Slice<Category> categoriesSlice = categoryRepository.findAll(
+        Slice<Category> categoriesSlice = categoryRepository.findAllByIsVisibleTrue(
                 PaginationUtils.getPageable(
                         request.getCategoryRequest().getPagination(),
                         sortFieldCategoryRequest

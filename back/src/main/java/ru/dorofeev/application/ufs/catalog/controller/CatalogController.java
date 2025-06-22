@@ -42,7 +42,7 @@ public class CatalogController {
             }
     )
     @PostMapping()
-    public WebCatalogResponse getCategories(@Valid @RequestBody WebCatalogRequest request) {
+    public WebCatalogResponse getCatalog(@Valid @RequestBody WebCatalogRequest request) {
         return service.getCatalog(request);
     }
 }

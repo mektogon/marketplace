@@ -29,11 +29,11 @@ public class CategoryServiceImpl implements CategoryService {
     public WebCategoryResponse getCategories(WebCategoryRequest request) {
 
         if (Objects.isNull(request)) {
-            log.error("Объект запроса не может быть равен null!");
+            log.warn("Объект запроса не может быть равен null!");
             return EMPTY_RESPONSE;
         }
 
-        Slice<Category> categorySlice = repository.findAll(
+        Slice<Category> categorySlice = repository.findAllByIsVisibleTrue(
                 PaginationUtils.getPageable(
                         request.getPagination(),
                         request.getSortField()

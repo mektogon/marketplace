@@ -7,6 +7,20 @@ spring:
     username: ${LOCAL_POSTGRES_USR}
     password: ${LOCAL_POSTGRES_PWD}
 
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+
 springdoc:
   api-docs:
     enabled: true

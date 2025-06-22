@@ -1,1 +1,1 @@
-TRUNCATE product_category, category, product;
+TRUNCATE product_category, product_tag, tag, category, product;

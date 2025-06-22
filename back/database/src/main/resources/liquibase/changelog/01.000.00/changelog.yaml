@@ -17,3 +17,12 @@ databaseChangeLog:
     - include:
         file: 1748682057805_insert_tshirt_to_category_table.sql
         relativeToChangelogFile: true
+    - include:
+        file: 1749889831106_create_tag_table.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 1750347366753_create_table_product_tag.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 1750347548072_change_comment_table_product_category.sql
+        relativeToChangelogFile: true

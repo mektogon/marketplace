@@ -1,14 +1,18 @@
 openapi: 3.1.0
 info:
-  title: Base Project
+  title: Marketplace
   description: Интернет-площадка для размещения товаров
   version: 01.000.00
-externalDocs:
-  description: Карточка приложения
-  url: protocol://host:port/docs/app
 servers:
-  - url: protocol://host:port/
+  - url: "{protocol}://{host}:{port}/"
     description: Адрес приложения
+    variables:
+      protocol:
+        default: http
+      host:
+        default: localhost
+      port:
+        default: "8081"
 tags:
   - name: CatalogController
     description: Точка доступа к каталогу
@@ -84,7 +88,7 @@ paths:
       tags:
         - CatalogController
       description: Получение списка категорий
-      operationId: getCategories_1
+      operationId: getCatalog
       requestBody:
         content:
           application/json:
@@ -163,6 +167,9 @@ components:
           type: integer
           format: int32
           description: Общее количество страниц
+      required:
+        - pageIndex
+        - pageSize
     SortField:
       type: object
       description: Модель с параметрами сортировки
@@ -192,9 +199,11 @@ components:
         description:
           type: string
           description: Описание продукта
-        isVisible:
-          type: boolean
-          description: Отображение продукта
+        tags:
+          type: array
+          description: Список тегов пользователя
+          items:
+            $ref: "#/components/schemas/WebTag"
     WebProductResponse:
       type: object
       description: Модель со списком продуктов
@@ -210,6 +219,16 @@ components:
           description: Список продуктов
           items:
             $ref: "#/components/schemas/WebProduct"
+    WebTag:
+      type: object
+      description: Модель с информацией по тегу
+      properties:
+        code:
+          type: string
+          description: Код тега
+        displayName:
+          type: string
+          description: Наименование тега
     Pagination:
       type: object
       description: Модель с параметрами пагинации
@@ -222,6 +241,9 @@ components:
           type: integer
           format: int32
           description: Количество элементов на странице
+      required:
+        - pageIndex
+        - pageSize
     WebProductRequest:
       type: object
       description: Модель запроса списка продуктов

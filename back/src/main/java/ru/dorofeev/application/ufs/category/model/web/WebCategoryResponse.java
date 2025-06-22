@@ -20,5 +20,5 @@ public class WebCategoryResponse extends BasicPaginationResponseFields {
 
     @Schema(description = "Список категорий")
     @Builder.Default
-    List<WebCategory> categories = new ArrayList<>();
+    private List<WebCategory> categories = new ArrayList<>();
 }

@@ -1,6 +1,7 @@
 package ru.dorofeev.application.ufs.catalog.model.web;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,9 +23,11 @@ public class WebCatalogRequest {
     @Schema(description = "Код категории, по которой необходимо получить начальный список товаров")
     private String initialCategoryCode;
 
+    @Valid
     @Schema(description = "Параметры запрос списка категорий")
     private WebCategoryRequest categoryRequest;
 
+    @Valid
     @Schema(description = "Параметры запрос списка продуктов")
     private WebProductRequest productRequest;
 }
