@@ -26,3 +26,6 @@ databaseChangeLog:
     - include:
         file: 1750347548072_change_comment_table_product_category.sql
         relativeToChangelogFile: true
+    - include:
+        file: 1751105281593_create_product_file.sql
+        relativeToChangelogFile: true

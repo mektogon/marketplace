@@ -70,3 +70,15 @@ management:
 springdoc:
   api-docs:
     enabled: false
+
+file-manager:
+  file:
+    extension:
+      - png
+      - jpg
+      - jpeg
+      - svg
+      - gif
+      - webp
+      - mp4
+      - wmv
