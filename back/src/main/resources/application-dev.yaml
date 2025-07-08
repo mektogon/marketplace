@@ -11,15 +11,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
 
 springdoc:
   api-docs:
@@ -29,3 +20,17 @@ management:
   endpoint:
     health:
       show-details: always
+
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          filter:
+            CommonsRequestLoggingFilter: DEBUG
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
