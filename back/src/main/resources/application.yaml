@@ -85,6 +85,15 @@ file-manager:
       - jpeg
       - svg
       - gif
-      - webp
-      - mp4
-      - wmv
+  s3:
+    s3-credentials-key-access-id: ${S3_CREDENTIALS_KEY_ACCESS_ID}
+    s3-credentials-key-access-secret: ${S3_CREDENTIALS_KEY_ACCESS_SECRET}
+    region: ${S3_REGION}
+    http-netty-client-connection-time-out: 10s
+    http-netty-client-read-time-out: 5m
+    http-netty-client-write-time-out: 5m
+    http-netty-client-max-concurrency: 100
+    s3-client-api-call-time-out: 15m
+    s3-client-api-call-attempt-timeout: 5m
+    s3-client-retry-policy-max-attempts: 3
+    s3-client-retry-policy-backoff-fixed-delay: 3s

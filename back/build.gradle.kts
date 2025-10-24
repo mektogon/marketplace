@@ -56,6 +56,9 @@ dependencies {
     implementation("io.micrometer:micrometer-registry-prometheus:1.13.5")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6")
 
+    implementation("software.amazon.awssdk:s3:2.36.0")
+    implementation("software.amazon.awssdk:netty-nio-client:2.36.1")
+
     compileOnly("org.projectlombok:lombok:$lombokVersion")
     annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
