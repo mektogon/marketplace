@@ -13,11 +13,11 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USR}
       - POSTGRES_PASSWORD=${POSTGRES_PWD}
-  back:
+  business-application:
     build:
       context: ..
-      dockerfile: /docker/builder/back/Dockerfile
-    container_name: marketplace-back
+      dockerfile: /docker/builder/back/DockerfileBusinessApplication
+    container_name: business-application
     ports:
       - "8080:8080"
     restart: always
@@ -33,6 +33,14 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USR=${POSTGRES_USR}
       - POSTGRES_PWD=${POSTGRES_PWD}
+  nginx:
+    container_name: backend-nginx-1.25.3
+    image: nginx:1.25.3
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    volumes:
+      - ./configuration/nginx:/etc/nginx/conf.d
   storage:
     container_name: minio-s3-storage
     image: minio/minio:RELEASE.2025-04-22T22-12-26Z
